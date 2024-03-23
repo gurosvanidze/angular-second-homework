@@ -6,18 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parent.component.scss']
 })
 export class ParentComponent implements OnInit {
+  major = 1;
+  minor = 23;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  minor = 23;
-  minorVersion() {
-    this.minor++;
+  updateMinor() {
+    this.minor += 1;
   }
-  major = 1;
-  majorVersion() {
-    this.major++;
+  updateMajor() {
+    this.major += 1;
     this.minor = 0;
   }
 }

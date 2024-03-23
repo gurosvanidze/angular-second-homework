@@ -6,14 +6,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./child-second.component.scss']
 })
 export class ChildSecondComponent implements OnInit {
-
+  @Input()  name!: string;
+  @Output() onVoted = new EventEmitter<boolean>();
+  voted = false;
   constructor() { }
 
   ngOnInit(): void {
   }
-  @Input()  name = "";
-  @Output() onVoted = new EventEmitter<boolean>();
-  voted = false;
   vote(agreed: boolean) {
     this.onVoted.emit(agreed);
     this.voted = true;

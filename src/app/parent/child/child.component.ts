@@ -6,26 +6,25 @@ import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from
   styleUrls: ['./child.component.scss']
 })
 export class ChildComponent implements OnInit, OnChanges {
-  @Input() major = 0;
-  @Input() minor = 0;
+  @Input() minor!: number;
+  @Input() major!: number;
   changeLog: string[] = [];
-  ngOnChanges(changes: SimpleChanges) {
-    let log: string[] = [];
-    for (let logName in changes) {
-      let changedLog = changes[logName];
-      let to = JSON.stringify(changedLog.currentValue);
-      if (changedLog.isFirstChange()) {
-        log.push(`Initial value of ${logName} set to ${to}`);
-      } else {
-        let full = JSON.stringify(changedLog.previousValue);
-        log.push(`${logName} changed from ${full} to ${to}`);
-      }
-    }
-    this.changeLog.push(log.join(', '));
-  }
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    let log: string[] = [];
+    for(const change in changes) {
+      let prevValue = changes[change]?.previousValue;
+      let currValue = changes[change]?.currentValue;
+      if(changes[change]?.isFirstChange()) {
+        log.push(`Initial value of ${change} set to ${currValue}`);
+      }else  {
+        log.push(`${change} changed from ${prevValue} to ${currValue}`)
+      }
+    }
+    this.changeLog.push(log.join(', '));
+    console.log(this.changeLog);
+  }
 }
